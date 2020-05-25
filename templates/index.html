@@ -1,0 +1,19 @@
+{% extends "main.html" %}
+
+{% block headTitle %}
+<title>Notenrechner Applikation</title>
+{% endblock %}
+
+{% block body %}
+{% for note in noten %}
+    <div class="row">
+        {{ note }}
+    </div>
+{% endfor %}
+<div class="forms">
+    <form action="." method="POST">
+        <input type="text" name="modulname" placeholder="Modulname"></textarea>
+        <input type="submit" value="Modul erfassen">
+    </form>
+</div>
+{% endblock %}
