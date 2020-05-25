@@ -1,3 +1,2 @@
 language = "bash"
 run = "python3 notenrechner.py"
-repl.run
