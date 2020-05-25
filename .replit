@@ -1,2 +1,3 @@
-language = "python3"
-run = "./notenrechner.py"
+language = "bash"
+run = "python3 notenrechner.py"
+
