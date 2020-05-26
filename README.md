@@ -1,6 +1,6 @@
 # Notenrechner
 
-### NotenrechnerSuper simple command line python script to calculate average grades (CH). 
+### Super simple command line python script to calculate average grades (CH). 
 
 The «Notenrechner» script is a school project. It's a super simple python scrtipt to calculate your average grades from 1–6 (swiss grading scale). It prints the grades and let's you know at the end of the semester if you f###ed up in the past.
 
