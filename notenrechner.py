@@ -104,7 +104,7 @@ def main():
     print(f"Dies sind die Durchschnitte Ihrer Fächer:\n")
         
     for i in notenliste : 
-        print(f"{i}:\t{notenliste[i]:.2f}")
+        print(f"{i}:\t\t\t{notenliste[i]:.2f}")
 
     print(f"\n------------------------------------------------")
 
