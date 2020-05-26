@@ -1,17 +1,37 @@
 notenliste = {}
 
-# Abfrage des Faches
+
+# Abfrage des Faches.
 def fach_abfragen():
-    fach_eingabe = str(input("\nVon welchem Fach möchten Sie die Noten berechnen? "))
+    call_fach = "\nVon welchem Fach möchten Sie die Noten berechnen? "
+    fach_eingabe = str(input(call_fach))
     fach_eingabe = fach_eingabe.capitalize()
 
-    return fach_eingabe
+    # Prüft ob das Fach bereits erfasst wurde.
+    if fach_eingabe in notenliste:
+        print(f"\nAchtung! Sie haben dieses Fach bereits erfasst.")
+        call_type_again = f"Geben Sie '{fach_eingabe}' nochmals ein, um den Notenschnitt für das bestehende Fach zu löschen und neu zu erfassen oder 'x' um abzubrechen: "
+        abfrage_fach = str(input(call_type_again))
+            
+        while True:
+            if abfrage_fach != "x" and abfrage_fach != f"{fach_eingabe}":
+                abfrage_fach = input("Ungültige Eingabe.\n" + call_type_again)
 
-# Notenschnitt eines einzelnen Faches berechnen und prüfen auf unerlaubte Eingaben.
+            elif abfrage_fach == "x":
+                break
+
+            elif abfrage_fach == fach_eingabe:
+                return fach_eingabe
+
+    else:
+        return fach_eingabe
+
+
+# Notenschnitt eines einzelnen Faches berechnen.
 def notenschnitt_berechnen():
     noten = []
     counter = 0
-    question_data = "Geben Sie Ihre Note (1-6) ein oder x um abzubrechen: "
+    question_data = "Geben Sie Ihre Note (1-6) ein oder 'x' um abzubrechen: "
 
     while True:
         note_input = input(question_data)
@@ -44,28 +64,35 @@ def notenschnitt_berechnen():
 
     return notenschnitt
 
+
 # Gibt erfassten Notenschnitt des Faches nach Abbruch durch 'x' aus.
 # Listet Notenschnitte in Dictionary nach Fach und Schnitt.
 def notenschnitte_auflisten():
     fach = fach_abfragen()
-    notenschnitt = notenschnitt_berechnen()
-    print(f"\nIhr Notenschnitt für das Fach {fach} ist {notenschnitt:.2f}.\n")
-    notenliste[str(fach)] = float(notenschnitt)
 
+    # Fügt neues Fach und Notenschnitt zur Notenliste.
+    if fach != None:
+        notenschnitt = notenschnitt_berechnen()
+        print(f"\nIhr Notenschnitt für das Fach {fach} ist {notenschnitt:.2f}.\n")
+        notenliste[str(fach)] = float(notenschnitt)
+
+
+# Main Programm, fragt beim User nach weiterer Eingabe.
 def main():
     notenschnitte_auflisten()
     question_continue = "Möchten Sie eine weiteres Fach erfassen?\nBitte mit 'y' für Yes/Ja oder 'n' für No/Nein antworten: "
-    abfrage = input(question_continue)
+    abfrage_weitere = input(question_continue)
 
+    # Checkt ob weitere Eingabe gewünscht ist bis User mit 'Nein' abbricht.
     while True:
-        if abfrage != "y" and abfrage != "n":
-            abfrage = input("Ungültige Eingabe. " + question_continue)
+        if abfrage_weitere != "y" and abfrage_weitere != "n":
+            abfrage_weitere = input("Ungültige Eingabe.\n" + question_continue)
         
-        elif abfrage == "y":
+        elif abfrage_weitere == "y":
             notenschnitte_auflisten()
-            abfrage = input(question_continue)
+            abfrage_weitere = input(question_continue)
         
-        elif abfrage == "n":
+        elif abfrage_weitere == "n":
             break
     
     notensumme_gesamt = sum(notenliste.values())
@@ -77,7 +104,7 @@ def main():
     print(f"Dies sind die Durchschnitte Ihrer Fächer:\n")
         
     for i in notenliste : 
-        print(i, notenliste[i])
+        print(f"{i}:\t{notenliste[i]:.2f}")
 
     print(f"\n------------------------------------------------")
 
