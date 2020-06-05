@@ -1,21 +1,32 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+
+"""notenrechner.py: Super simple command line python script to calculate average grades (CH)."""
+
+__author__      = "Sandro Matter, Tino Dietrich"
+__copyright__   = "Copyright 2020"
+__license__     = "GPL"
+__version__     = "3.0"
+
+
 notenliste = {}
 
 
 # Abfrage des Faches.
 def fach_abfragen():
-    call_fach = "\nVon welchem Fach möchten Sie die Noten berechnen? "
-    fach_eingabe = str(input(call_fach))
+    fach_eingabe_string = "\nVon welchem Fach möchten Sie die Noten berechnen? "
+    fach_eingabe = str(input(fach_eingabe_string))
     fach_eingabe = fach_eingabe.capitalize()
 
     # Prüft ob das Fach bereits erfasst wurde.
     if fach_eingabe in notenliste:
-        print(f"\nAchtung! Sie haben dieses Fach bereits erfasst.")
-        call_type_again = f"Geben Sie '{fach_eingabe}' nochmals ein, um den Notenschnitt für das bestehende Fach zu löschen und neu zu erfassen oder 'x' um abzubrechen: "
-        abfrage_fach = str(input(call_type_again))
-            
+        print("\nAchtung! Sie haben dieses Fach bereits erfasst.")
+        fach_eingabe_bestaetigung_string = f"Geben Sie '{fach_eingabe}' nochmals ein, um den Notenschnitt für das bestehende Fach zu löschen und neu zu erfassen oder 'x' um abzubrechen: "
+        abfrage_fach = str(input(fach_eingabe_bestaetigung_string))
+
         while True:
             if abfrage_fach != "x" and abfrage_fach != f"{fach_eingabe}":
-                abfrage_fach = input("Ungültige Eingabe.\n" + call_type_again)
+                abfrage_fach = input("Ungültige Eingabe.\n" + fach_eingabe_bestaetigung_string)
 
             elif abfrage_fach == "x":
                 break
@@ -31,13 +42,13 @@ def fach_abfragen():
 def notenschnitt_berechnen():
     noten = []
     counter = 0
-    question_data = "Geben Sie Ihre Note (1-6) ein oder 'x' um abzubrechen: "
+    note_abfrage_string = "Geben Sie Ihre Note (1-6) ein oder 'x' um abzubrechen: "
 
     while True:
-        note_input = input(question_data)
+        note_abfrage = input(note_abfrage_string)
         
         # Unterbricht das Nachfragen nach weiteren Noten.
-        if note_input == "x": 
+        if note_abfrage == "x": 
             if counter > 0:
                 break
             
@@ -47,7 +58,7 @@ def notenschnitt_berechnen():
         # Prüft auf ungültige Usereingaben.
         else:
             try:
-                note_float = float(note_input)
+                note_float = float(note_abfrage)
 
                 if note_float >= 1.0 and note_float <= 6.0:
                     noten.append(note_float)
@@ -80,28 +91,28 @@ def notenschnitte_auflisten():
 # Main Programm, fragt beim User nach weiterer Eingabe.
 def main():
     notenschnitte_auflisten()
-    question_continue = "Möchten Sie eine weiteres Fach erfassen?\nBitte mit 'y' für Yes/Ja oder 'n' für No/Nein antworten: "
-    abfrage_weitere = input(question_continue)
+    fach_eingabe_weitere_string = "Möchten Sie eine weiteres Fach erfassen?\nBitte mit 'y' für Yes/Ja oder 'n' für No/Nein antworten: "
+    fach_eingabe_weitere = input(fach_eingabe_weitere_string)
 
     # Checkt ob weitere Eingabe gewünscht ist bis User mit 'Nein' abbricht.
     while True:
-        if abfrage_weitere != "y" and abfrage_weitere != "n":
-            abfrage_weitere = input("Ungültige Eingabe.\n" + question_continue)
+        if fach_eingabe_weitere != "y" and fach_eingabe_weitere != "n":
+            fach_eingabe_weitere = input("Ungültige Eingabe.\n" + fach_eingabe_weitere_string)
         
-        elif abfrage_weitere == "y":
+        elif fach_eingabe_weitere == "y":
             notenschnitte_auflisten()
-            abfrage_weitere = input(question_continue)
+            fach_eingabe_weitere = input(fach_eingabe_weitere_string)
         
-        elif abfrage_weitere == "n":
+        elif fach_eingabe_weitere == "n":
             break
     
     notensumme_gesamt = sum(notenliste.values())
     notenschnitt_gesamt = notensumme_gesamt / len(notenliste)
 
-    print(f"\n------------------------------------------------")
+    print("\n------------------------------------------------")
     print(f"\nIhr Gesamtnotenschnitt beträgt {notenschnitt_gesamt:.2f}.\n")
-    print(f"------------------------------------------------\n")
-    print(f"Dies sind die Durchschnitte Ihrer Fächer:\n")
+    print("------------------------------------------------\n")
+    print("Dies sind die Durchschnitte Ihrer Fächer:\n")
         
     for i in notenliste : 
         print(f"{i}:\t\t\t{notenliste[i]:.2f}")
