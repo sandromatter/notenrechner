@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-"""notenrechner.py: Super simple command line python script to calculate average grades (CH)."""
+"""notenrechner.py: Super simple command line python script to calculate average grades (CH and DE)."""
 
 __author__      = "Sandro Matter, Tino Dietrich"
 __copyright__   = "Copyright 2020"
